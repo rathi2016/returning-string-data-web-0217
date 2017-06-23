@@ -1,3 +1,39 @@
 <% @posts.each do |post| %>
   <%= render partial: "post", locals: {post: post} %>
 <% end %>
+
+<!-- <script type="text/javascript" charset="utf-8"> -->
+<script >
+
+
+var buttons = document.getElementsByClassName("js-more");
+var num_buttons = buttons.length
+
+
+for (var i = 0 ; i < buttons.length; i++) {
+   buttons[i].addEventListener('click' , bringBody  );
+}
+
+function bringBody(){
+   let id = this.dataset.id ;
+   var xhr = new XMLHttpRequest();
+   xhr.open("GET","/posts/" + id + "/body", true);
+   xhr.send();
+   xhr.onreadystatechange= function(){
+
+     if(xhr.readyState==4 && xhr.status==200){
+      let data =  xhr.responseText
+      document.getElementById("body-"+ id).innerText = data
+    }
+   }
+}
+
+// $(function () {
+//   $(".js-more").on('click', function() {
+//     var id = $(this).data("id");
+//     $.get("/posts/" + id + "/body", function(data) {
+//      $("#body-" + id).text(data);
+//     });
+//   });
+// });
+</script>
